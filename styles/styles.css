@@ -21,22 +21,35 @@ html {
     color: #918D8D;
   }
 
-  #TestSection {
-    font-size: 80px;
-    text-align: center;
-    color: rgb(255, 0, 0);
-  }
-
   #SecondHeadLine{
       color: #D9017A;
       font-size: 30px;
       text-align: center;
   }
 
+div.img-holder{ 
+    position: relative
+}
 
+div.img-holder .button {
+    position:absolute;
+    top:50%; 
+    left:40%;
+    background-color: #918D8D; /* Green */
+    border: none;
+    color: white;
+    padding: 35px 60px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 25px;
+    border-radius: 12px;
+    font-family: 'Esteban';
+}
 
-  img {
+div.img-holder  img {
     width:100%;
+    height: 550px;
     margin:0;
     padding: 0;
   }
