@@ -1,14 +1,12 @@
 document.onkeypress = function(e){
     var hasStarted = document.querySelector("#HasStarted");
-    hasStarted.textContent = "true";
     if (hasStarted.textContent == "true"){
         attentionTest(e);
      }
 
 }
 
-
-function Start(){
+function Start(event){
     var hasStarted = document.querySelector("#HasStarted");
     hasStarted.textContent = "true";
     var charDisplayed = document.querySelector("#TestArea");
@@ -17,8 +15,11 @@ function Start(){
     var startTimeField = document.querySelector("#StartTime");
     startTimeField.textContent = startTime.toString();
     var errorField =  document.querySelector("#NumberOfErrors");
-    errorField.textContent = "0";
-    
+    errorField.textContent = "0";   
+    var currentCharacterListField = document.querySelector("#ListOfCharacters");
+    currentCharacterListField.textContent = "";
+    var elem = document.getElementById("DemoButton");
+    elem.parentNode.removeChild(elem);
 }
 
 function attentionTest(e){
