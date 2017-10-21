@@ -1,0 +1,42 @@
+html {
+    font-size: 20px;
+    font-family: 'Esteban';
+    padding: 0;
+    margin: 0;
+  }
+
+  body {
+    padding: 0;
+    margin: 0;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    margin:0;
+    padding:0;
+ }
+
+  #FirstHeadLine {
+    font-size: 30px;
+    text-align: center;
+    color: #918D8D;
+  }
+
+  #TestSection {
+    font-size: 80px;
+    text-align: center;
+    color: rgb(255, 0, 0);
+  }
+
+  #SecondHeadLine{
+      color: #D9017A;
+      font-size: 30px;
+      text-align: center;
+  }
+
+
+
+  img {
+    width:100%;
+    margin:0;
+    padding: 0;
+  }
