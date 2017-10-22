@@ -48,18 +48,17 @@ function attentionTest(e){
         if (n>= 10){
             var subString = currentCharacterList.substr(n-10);
             if (subString.indexOf("X") > -1){
-                var rand = Math.random();
-                var charNumberFloat =  65 + 26 * rand;
-                var charNumber = Math.floor(charNumberFloat);    
-                charDisplayed.textContent = String.fromCharCode(charNumber);
+                charDisplayed.textContent = GenerateRandomCharacter();
             }else{
+                var rand = Math.random();
+                if (rand >= 0.6){
                 charDisplayed.textContent = "X";
+                }else{
+                    charDisplayed.textContent = GenerateRandomCharacter();
+                }
             }
         }else{
-            var rand = Math.random();
-            var charNumberFloat =  65 + 26 * rand;
-            var charNumber = Math.floor(charNumberFloat);    
-            charDisplayed.textContent = String.fromCharCode(charNumber);
+            charDisplayed.textContent = GenerateRandomCharacter();
         }
         
     }else{
@@ -70,6 +69,13 @@ function attentionTest(e){
 
 }
 
+
+function GenerateRandomCharacter(){
+    var rand = Math.random();
+    var charNumberFloat =  65 + 26 * rand;
+    var charNumber = Math.floor(charNumberFloat);    
+    return String.fromCharCode(charNumber);
+}
 function wait(ms){
     var start = new Date().getTime();
     var end = start;
