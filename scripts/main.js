@@ -1,4 +1,4 @@
-document.onkeypress = function(e){
+document.onkeydown = function(e){
     var hasStarted = document.querySelector("#HasStarted");
     if (hasStarted.textContent == "true"){
         attentionTest(e);
