@@ -42,6 +42,7 @@ function Start(event){
     elem.parentNode.removeChild(elem);
     CurrentCharacter.a = "A";
     LastPressingTime = StartTime;
+    stopwatch.start();
 }
 
 function attentionTest(e){
@@ -82,6 +83,7 @@ function attentionTest(e){
         HasStarted = false;
         $("#TestArea").textContent = "The test is now completed, thank you";
         $("#TestArea").style.color = "red";
+        stopwatch.stop();
     }
 }
 
