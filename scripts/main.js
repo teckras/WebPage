@@ -44,11 +44,24 @@ function attentionTest(e){
     errorField.textContent = errorNumber;
     if ((currentTime - startTime) <= 60000)
     {
-        var rand = Math.random();
-        var charNumberFloat =  65 + 26 * rand;
-        var charNumber = Math.floor(charNumberFloat);
+        var n = currentCharacterList.length;
+        if (n>= 10){
+            var subString = currentCharacterList.substr(n-10);
+            if (subString.indexOf("X") > -1){
+                var rand = Math.random();
+                var charNumberFloat =  65 + 26 * rand;
+                var charNumber = Math.floor(charNumberFloat);    
+                charDisplayed.textContent = String.fromCharCode(charNumber);
+            }else{
+                charDisplayed.textContent = "X";
+            }
+        }else{
+            var rand = Math.random();
+            var charNumberFloat =  65 + 26 * rand;
+            var charNumber = Math.floor(charNumberFloat);    
+            charDisplayed.textContent = String.fromCharCode(charNumber);
+        }
         
-        charDisplayed.textContent = String.fromCharCode(charNumber);
     }else{
         var hasStarted = document.querySelector("#HasStarted");
         hasStarted.textContent = "false";
