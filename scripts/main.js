@@ -1,81 +1,105 @@
+var  CurrentCharacter = {
+    aInternal: "A",
+    aListener: function(val) {},
+    set a(val) {
+      this.aInternal = val;
+      this.aListener(val);
+    },
+    get a() {
+      return this.aInternal;
+    },
+    registerListener: function(listener) {
+      this.aListener = listener;
+    }
+  }
+
+  CurrentCharacter.registerListener(function(val) {
+    var f = $("#TestArea");
+    f.textContent = CurrentCharacter.a;
+    f.style.color = "red"; 
+    setTimeout(function() {
+        f.style.color = 'white';
+    }, 200);
+  });
+
+var HasStarted = false;
+var StartTime;
+var LastPressingTime;
+
 document.onkeydown = function(e){
-    var hasStarted = document.querySelector("#HasStarted");
-    if (hasStarted.textContent == "true"){
+    if (HasStarted){
         attentionTest(e);
      }
-
 }
 
+
 function Start(event){
-    var hasStarted = document.querySelector("#HasStarted");
-    hasStarted.textContent = "true";
-    var charDisplayed = document.querySelector("#TestArea");
-    charDisplayed.textContent = "A";
-    var startTime = new Date().getTime();
-    var startTimeField = document.querySelector("#StartTime");
-    startTimeField.textContent = startTime.toString();
-    var errorField =  document.querySelector("#NumberOfErrors");
-    errorField.textContent = "0";   
-    var currentCharacterListField = document.querySelector("#ListOfCharacters");
-    currentCharacterListField.textContent = "";
+    HasStarted = true;
+    StartTime = new Date().getTime();
+    $("#Errors").textContent = "";   
+    $("#ListOfCharacters").textContent = "";
     var elem = document.getElementById("DemoButton");
     elem.parentNode.removeChild(elem);
+    CurrentCharacter.a = "A";
+    LastPressingTime = StartTime;
 }
 
 function attentionTest(e){
     var currentTime = new Date().getTime();
-    var startTime = parseInt(document.querySelector("#StartTime").textContent);
-    var charDisplayed = document.querySelector("#TestArea");
-    var currentCharacter = charDisplayed.textContent;
     var isSpaceStruck = e.code == "Space";
     var isRightArrowStruck = e.code == "ArrowRight";
-    var errorField =  document.querySelector("#NumberOfErrors");
-    var errorNumber = parseInt(errorField.textContent);
-    var currentCharacterListField = document.querySelector("#ListOfCharacters");
-    var currentCharacterList = currentCharacterListField.textContent;
-    currentCharacterList += currentCharacter;
-    currentCharacterListField.textContent = currentCharacterList;
-
-    if(currentCharacter == "X" && isSpaceStruck){
-        errorNumber += 1;
-    }else if (currentCharacter != "X" && isRightArrowStruck){
-        errorNumber += 1;
+    var pressingTime = (currentTime - LastPressingTime);
+    LastPressingTime = currentTime;
+    $("#PressingTimes").textContent += pressingTime + ",";
+    $("#ListOfCharacters").textContent += CurrentCharacter.a + ",";
+    var currentCharacterList = $("#ListOfCharacters").textContent;
+    var errorText = "C,";
+    if(CurrentCharacter.a == "X" && isSpaceStruck){
+        errorText = "W,"
+    }else if (CurrentCharacter.a != "X" && isRightArrowStruck){
+        errorText = "W,"
     }
-    errorField.textContent = errorNumber;
-    if ((currentTime - startTime) <= 60000)
+    $("#Errors").textContent += errorText;
+    if ((currentTime - StartTime) <= 60000)
     {
         var n = currentCharacterList.length;
         if (n>= 10){
             var subString = currentCharacterList.substr(n-10);
             if (subString.indexOf("X") > -1){
-                charDisplayed.textContent = GenerateRandomCharacter();
+                CurrentCharacter.a = GenerateRandomCharacter(CurrentCharacter.a);              
             }else{
                 var rand = Math.random();
                 if (rand >= 0.6){
-                charDisplayed.textContent = "X";
+                    CurrentCharacter.a = "X";
                 }else{
-                    charDisplayed.textContent = GenerateRandomCharacter();
+                    CurrentCharacter.a = GenerateRandomCharacter(CurrentCharacter.a);
                 }
             }
         }else{
-            charDisplayed.textContent = GenerateRandomCharacter();
+            CurrentCharacter.a = GenerateRandomCharacter(CurrentCharacter.a);
         }
-        
     }else{
-        var hasStarted = document.querySelector("#HasStarted");
-        hasStarted.textContent = "false";
-        charDisplayed.textContent = "Test is now completed, thank you"
+        HasStarted = false;
+        $("#TestArea").textContent = "The test is now completed, thank you";
+        $("#TestArea").style.color = "red";
     }
+}
 
+function $(name){
+    return document.querySelector(name);
 }
 
 
-function GenerateRandomCharacter(){
+function GenerateRandomCharacter(currentCharacter){
     var rand = Math.random();
     var charNumberFloat =  65 + 26 * rand;
-    var charNumber = Math.floor(charNumberFloat);    
-    return String.fromCharCode(charNumber);
+    var charNumber = Math.floor(charNumberFloat);
+    if (currentCharacter == String.fromCharCode(charNumber)) 
+        return GenerateRandomCharacter(currentCharacter);   
+    else
+        return String.fromCharCode(charNumber);
 }
+
 function wait(ms){
     var start = new Date().getTime();
     var end = start;
