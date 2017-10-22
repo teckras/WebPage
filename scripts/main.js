@@ -25,10 +25,25 @@ var  CurrentCharacter = {
 var HasStarted = false;
 var StartTime;
 var LastPressingTime;
+var QCounter = 0;
 
 document.onkeydown = function(e){
     if (HasStarted){
-        attentionTest(e);
+        if (e.key == "q")
+        {
+            QCounter += 1;
+            if (QCounter == 5){
+                HasStarted = false;
+                $("#TestArea").textContent = "The test has been cancelled you naughty kid";
+                $("#TestArea").style.color = "red";
+                stopwatch.stop();
+            }else{
+                attentionTest(e);
+            }
+        }else{
+            QCounter = 0;
+            attentionTest(e);
+        }
      }
 }
 
