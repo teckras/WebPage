@@ -54,9 +54,9 @@ function attentionTest(e){
     $("#ListOfCharacters").textContent += CurrentCharacter.a + ",";
     var currentCharacterList = $("#ListOfCharacters").textContent;
     var errorText = "C,";
-    if(CurrentCharacter.a == "X" && isSpaceStruck){
+    if(CurrentCharacter.a == "X" && !isRightArrowStruck){
         errorText = "W,"
-    }else if (CurrentCharacter.a != "X" && isRightArrowStruck){
+    }else if (CurrentCharacter.a != "X" && !isSpaceStruck){
         errorText = "W,"
     }
     $("#Errors").textContent += errorText;
