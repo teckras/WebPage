@@ -16,10 +16,12 @@ var  CurrentCharacter = {
   CurrentCharacter.registerListener(function(val) {
     var f = $("#TestArea");
     f.textContent = CurrentCharacter.a;
-    f.style.color = "red"; 
+    setTimeout(function() {
+        f.style.color = 'red';
+    }, 500); 
     setTimeout(function() {
         f.style.color = 'white';
-    }, 200);
+    }, 800);
   });
 
 var HasStarted = false;
